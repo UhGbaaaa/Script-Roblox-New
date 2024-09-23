@@ -8,6 +8,7 @@ local Players = game:GetService("Players")
 local Player = Players.LocalPlayer
 local PlayerMouse = Player:GetMouse()
 local font = Enum.Font.SciFi
+local ta = 0.5
 
 local redzlib = {
 	Themes = {
@@ -408,10 +409,10 @@ AddEle("Button", function(parent, props, ...)
 	}), props), "Frame")
 	
 	New.MouseEnter:Connect(function()
-		New.BackgroundTransparency = 0.4
+		New.BackgroundTransparency = ta
 	end)
 	New.MouseLeave:Connect(function()
-		New.BackgroundTransparency = 0
+		New.BackgroundTransparency = ta
 	end)
 	if args[1] then
 		New.Activated:Connect(args[1])
@@ -881,7 +882,7 @@ function redzlib:MakeWindow(Configs)
 		})
 		
 		local Screen = InsertTheme(Create("Frame", MainFrame, {
-			BackgroundTransparency = 0.6,
+			BackgroundTransparency = ta,
 			Active = true,
 			BackgroundColor3 = Theme["Color Hub 2"],
 			Size = UDim2.new(1, 0, 1, 0),
