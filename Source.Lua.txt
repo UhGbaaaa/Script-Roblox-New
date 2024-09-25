@@ -54,8 +54,8 @@ local redzlib = {
 	},
 	Save = {
 		UISize = {550, 380},
-		TabSize = 160,
-		Theme = "Darker"
+		TabSize = 190,
+		Theme = "Dark"
 	},
 	Settings = {},
 	Connection = {},
@@ -954,7 +954,7 @@ function redzlib:MakeWindow(Configs)
 		end
 		
 		local TabSelect = Make("Button", MainScroll, {
-			Size = UDim2.new(1, 0, 0, 24)
+			Size = UDim2.new(1, 0, 0, 26)
 		})Make("Corner", TabSelect)
 		
 		local LabelTitle = InsertTheme(Create("TextLabel", TabSelect, {
@@ -1062,7 +1062,7 @@ function redzlib:MakeWindow(Configs)
 			local SectionName = type(Configs) == "string" and Configs or Configs[1] or Configs.Name or Configs.Title or Configs.Section
 			
 			local SectionFrame = Create("Frame", Container, {
-				Size = UDim2.new(1, 0, 0, 20),
+				Size = UDim2.new(1, 0, 0, 24),
 				BackgroundTransparency = 1,
 				Name = "Option"
 			})
@@ -1455,7 +1455,7 @@ function redzlib:MakeWindow(Configs)
 					
 					local Button = Make("Button", ScrollFrame, {
 						Name = "Option",
-						Size = UDim2.new(1, 0, 0, 21),
+						Size = UDim2.new(1, 0, 0, 25),
 						Position = UDim2.new(0, 0, 0.5),
 						AnchorPoint = Vector2.new(0, 0.5)
 					})Make("Corner", Button, UDim.new(0, 4))
@@ -1787,7 +1787,7 @@ function redzlib:MakeWindow(Configs)
 			})
 			
 			local InviteLabel = Create("TextLabel", InviteHolder, {
-				Size = UDim2.new(1, 0, 0, 15),
+				Size = UDim2.new(1, 0, 0, 20),
 				Position = UDim2.new(0, 5),
 				TextColor3 = Color3.fromRGB(40, 150, 255),
 				Font = font,
