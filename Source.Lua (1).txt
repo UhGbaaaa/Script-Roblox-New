@@ -7,7 +7,7 @@ local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 local Player = Players.LocalPlayer
 local PlayerMouse = Player:GetMouse()
-local font = Enum.Font.SciFi
+local font = Enum.Font.Arcade
 local ta = 0.5
 
 local redzlib = {
@@ -174,7 +174,7 @@ local Funcs = {} do
 		
 		function Connected:Fire(...)
 			if self.Connected then
-				task.spawn(self.Function, ...)
+				task.spawn(self.l, ...)
 			end
 		end
 		
@@ -736,14 +736,14 @@ function redzlib:MakeWindow(Configs)
 		Position = UDim2.new(1, -10, 0.5),
 		AnchorPoint = Vector2.new(1, 0.5),
 		BackgroundTransparency = 1,
-		Image = "rbxassetid://10747384394",
+		Image = "rbxassetid://",
 		AutoButtonColor = false,
 		Name = "Close"
 	})
 	
 	local MinimizeButton = SetProps(CloseButton:Clone(), {
 		Position = UDim2.new(1, -35, 0.5),
-		Image = "rbxassetid://10734896206",
+		Image = "rbxassetid://",
 		Name = "Minimize"
 	})
 	
@@ -755,29 +755,20 @@ function redzlib:MakeWindow(Configs)
 	local Minimized, SaveSize, WaitClick
 	local Window, FirstTab = {}, false
 	function Window:CloseBtn()
-		local Dialog = Window:Dialog({
-			Title = "Close",
-			Text = "Are you sure you want to close this script??",
-			Options = {
-				{"Confirm", function()
-					ScreenGui:Destroy()
-				end},
-				{"Cancel"}
-			}
-		})
+		
 	end
 	function Window:MinimizeBtn()
 		if WaitClick then return end
 		WaitClick = true
 		
 		if Minimized then
-			MinimizeButton.Image = "rbxassetid://10734896206"
+			MinimizeButton.Image = "rbxassetid://"
 			CreateTween({MainFrame, "Size", SaveSize, 0.25, true})
 			ControlSize1.Visible = true
 			ControlSize2.Visible = true
 			Minimized = false
 		else
-			MinimizeButton.Image = "rbxassetid://10734924532"
+			MinimizeButton.Image = "rbxassetid://"
 			SaveSize = MainFrame.Size
 			ControlSize1.Visible = false
 			ControlSize2.Visible = false
@@ -1872,8 +1863,8 @@ function redzlib:MakeWindow(Configs)
 		return Tab
 	end
 	
-	CloseButton.Activated:Connect(Window.CloseBtn)
-	MinimizeButton.Activated:Connect(Window.MinimizeBtn)
+	CloseButton.Activated:Connect()
+	MinimizeButton.Activated:Connect()
 	return Window
 end
 
