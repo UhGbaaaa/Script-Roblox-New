@@ -12,17 +12,17 @@ local ta = 0.5
 
 local redzlib = {
 	Themes = {
-		Darker = {
+		Blue = {
 			["Color Hub 1"] = ColorSequence.new({
 				ColorSequenceKeypoint.new(0.00, Color3.fromRGB(25, 25, 25)),
 				ColorSequenceKeypoint.new(0.50, Color3.fromRGB(32.5, 32.5, 32.5)),
 				ColorSequenceKeypoint.new(1.00, Color3.fromRGB(25, 25, 25))
 			}),
-			["Color Hub 2"] = Color3.fromRGB(68, 65, 65),
-			["Color Stroke"] = Color3.fromRGB(142, 0, 0),
+			["Color Hub 2"] = Color3.fromRGB(0, 0, 166),
+			["Color Stroke"] = Color3.fromRGB(0, 0, 255),
 			["Color Theme"] = Color3.fromRGB(0, 0, 0),
-			["Color Text"] = Color3.fromRGB(255, 0, 0),
-			["Color Dark Text"] = Color3.fromRGB(144, 0, 0)
+			["Color Text"] = Color3.fromRGB(0, 0, 0),
+			["Color Dark Text"] = Color3.fromRGB(0, 0, 0)
 		},
 		Dark = {
 			["Color Hub 1"] = ColorSequence.new({
@@ -55,7 +55,7 @@ local redzlib = {
 	Save = {
 		UISize = {550, 380},
 		TabSize = 160,
-		Theme = "Darker"
+		Theme = "Blue"
 	},
 	Settings = {},
 	Connection = {},
@@ -131,7 +131,7 @@ local SetProps, SetChildren, InsertTheme, Create do
 		end
 	end
 	
-	pcall(Save, "redz library V5.json")
+	pcall(Save, "BYSUSKHMER LIBRARY.json")
 end
 
 local Funcs = {} do
@@ -273,7 +273,7 @@ local GetFlag, SetFlag, CheckFlag do
 end
 
 local ScreenGui = Create("ScreenGui", CoreGui, {
-	Name = "redz Library V5",
+	Name = "BLUE MOD",
 }, {
 	Create("UIScale", {
 		Scale = UIScale,
@@ -548,7 +548,7 @@ function redzlib:SetTheme(NewTheme)
 	if not VerifyTheme(NewTheme) then return end
 	
 	redzlib.Save.Theme = NewTheme
-	SaveJson("redz library V5.json", redzlib.Save)
+	SaveJson("BYSUSKHMER LIBRARY.json", redzlib.Save)
 	Theme = redzlib.Themes[NewTheme]
 	
 	Comnection:FireConnection("ThemeChanged", NewTheme)
@@ -577,8 +577,8 @@ function redzlib:SetScale(NewScale)
 end
 
 function redzlib:MakeWindow(Configs)
-	local WTitle = Configs[1] or Configs.Name or Configs.Title or "redz Library V5"
-	local WMiniText = Configs[2] or Configs.SubTitle or "by : redz9999"
+	local WTitle = Configs[1] or Configs.Name or Configs.Title or "Blue Mod"
+	local WMiniText = Configs[2] or Configs.SubTitle or "by : Bysuskhmer"
 	
 	Settings.ScriptFile = Configs[3] or Configs.SaveFolder or false
 	
@@ -718,13 +718,13 @@ function redzlib:MakeWindow(Configs)
 	ConnectSave(ControlSize1, function()
 		if not Minimized then
 			redzlib.Save.UISize = {MainFrame.Size.X.Offset, MainFrame.Size.Y.Offset}
-			SaveJson("redz library V5.json", redzlib.Save)
+			SaveJson("BYSUSKHMER LIBRARY.json", redzlib.Save)
 		end
 	end)
 	
 	ConnectSave(ControlSize2, function()
 		redzlib.Save.TabSize = MainScroll.Size.X.Offset
-		SaveJson("redz library V5.json", redzlib.Save)
+		SaveJson("BYSUSKHMER LIBRARY.json", redzlib.Save)
 	end)
 	
 	local ButtonsFolder = Create("Folder", TopBar, {
