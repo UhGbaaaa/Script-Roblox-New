@@ -68,7 +68,7 @@ local redzlib = {
 }
 
 local ViewportSize = workspace.CurrentCamera.ViewportSize
-local UIScale = ViewportSize.Y / 450
+local UIScale = ViewportSize.Y / 0
 
 local Settings = redzlib.Settings
 local Flags = redzlib.Flags
@@ -319,6 +319,42 @@ local function CreateTween(Configs)
 	return Tween
 end
 
+local function MakeDrag(Instance)
+	task.spawn(function()
+		SetProps(Instance, {
+			Active = true,
+			AutoButtonColor = false
+		})
+		
+		local DragStart, StartPos, InputOn
+		
+		local function Update(Input)
+			local delta = Input.Position - DragStart
+			local Position = UDim2.new(StartPos.X.Scale, StartPos.X.Offset + delta.X / UIScale, StartPos.Y.Scale, StartPos.Y.Offset + delta.Y / UIScale)
+			-- Instance.Position = Position
+			CreateTween({Instance, "Position", Position, 0.35})
+		end
+		
+		Instance.MouseButton1Down:Connect(function()
+			InputOn = true
+		end)
+		
+		Instance.InputBegan:Connect(function(Input)
+			if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
+				StartPos = Instance.Position
+				DragStart = Input.Position
+				
+				while UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) do RunService.Heartbeat:Wait()
+					if InputOn then
+						Update(Input)
+					end
+				end
+				InputOn = false
+			end
+		end)
+	end)
+	return Instance
+end
 
 local function VerifyTheme(Theme)
 	for name,_ in pairs(redzlib.Themes) do
@@ -536,8 +572,7 @@ function redzlib:SetTheme(NewTheme)
 end
 
 function redzlib:SetScale(NewScale)
-	NewScale = ViewportSize.Y / math.clamp(NewScale, 300, 2000)
-	UIScale, ScreenGui.Scale.Scale = NewScale, NewScale
+	
 end
 
 function redzlib:MakeWindow(Configs)
@@ -561,6 +596,17 @@ function redzlib:MakeWindow(Configs)
 			end
 		end
 	end;LoadFile()
+	
+	local UISizeX, UISizeY = unpack(redzlib.Save.UISize)
+	local MainFrame = InsertTheme(Create("ImageButton", ScreenGui, {
+		Size = UDim2.fromOffset(UISizeX, UISizeY),
+		Position = UDim2.new(0.5, -UISizeX/2, 0.5, -UISizeY/2),
+		BackgroundTransparency = 0.03,
+		Name = "Hub"
+	}), "Main")
+	Make("Gradient", MainFrame, {
+		Rotation = 45
+	})MakeDrag(MainFrame)
 	
 	local MainCorner = Make("Corner", MainFrame)
 	
@@ -638,6 +684,22 @@ function redzlib:MakeWindow(Configs)
 		ClipsDescendants = true,
 		Name = "Containers"
 	})
+	
+	local ControlSize1, ControlSize2 = MakeDrag(Create("ImageButton", MainFrame, {
+		Size = UDim2.new(0, 35, 0, 35),
+		Position = MainFrame.Size,
+		Active = true,
+		AnchorPoint = Vector2.new(0.8, 0.8),
+		BackgroundTransparency = 1,
+		Name = "Control Hub Size"
+	})), MakeDrag(Create("ImageButton", MainFrame, {
+		Size = UDim2.new(0, 20, 1, -30),
+		Position = UDim2.new(0, MainScroll.Size.X.Offset, 1, 0),
+		AnchorPoint = Vector2.new(0.5, 1),
+		Active = true,
+		BackgroundTransparency = 1,
+		Name = "Control Tab Size"
+	}))
 	
 	local function ControlSize()
 		local Pos1, Pos2 = ControlSize1.Position, ControlSize2.Position
@@ -718,6 +780,14 @@ function redzlib:MakeWindow(Configs)
 	function Window:Minimize()
 		MainFrame.Visible = not MainFrame.Visible
 	end
+	function Window:AddMinimizeButton(Configs)
+		local Button = MakeDrag(Create("ImageButton", ScreenGui, {
+			Size = UDim2.fromOffset(35, 35),
+			Position = UDim2.fromScale(0.15, 0.15),
+			BackgroundTransparency = 1,
+			BackgroundColor3 = Theme["Color Hub 2"],
+			AutoButtonColor = false
+		}))
 		
 		local Stroke, Corner
 		if Configs.Corner then
@@ -882,7 +952,7 @@ function redzlib:MakeWindow(Configs)
 			Position = UDim2.fromOffset(TIcon and 25 or 15),
 			BackgroundTransparency = 1,
 			Font = font,
-			Text = "",
+			Text = TName,
 			TextColor3 = Theme["Color Text"],
 			TextSize = 14,
 			TextXAlignment = Enum.TextXAlignment.Left,
@@ -891,7 +961,7 @@ function redzlib:MakeWindow(Configs)
 		}), "Text")
 		
 		local LabelIcon = InsertTheme(Create("ImageLabel", TabSelect, {
-			Position = UDim2.new(0, 35, 15),
+			Position = UDim2.new(0, 8, 0.5),
 			Size = UDim2.new(0, 13, 0, 13),
 			AnchorPoint = Vector2.new(0, 0.5),
 			Image = TIcon or "",
