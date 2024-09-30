@@ -36,17 +36,17 @@ local redzlib = {
 			["Color Text"] = Color3.fromRGB(245, 245, 245),
 			["Color Dark Text"] = Color3.fromRGB(190, 190, 190)
 		},
-		Red = {
+		Purple = {
 			["Color Hub 1"] = ColorSequence.new({
-				ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 255, 255)),
-				ColorSequenceKeypoint.new(0.50, Color3.fromRGB(255, 0, 0)),
-				ColorSequenceKeypoint.new(1.00, Color3.fromRGB(255, 0, 0))
+				ColorSequenceKeypoint.new(0.00, Color3.fromRGB(27.5, 25, 30)),
+				ColorSequenceKeypoint.new(0.50, Color3.fromRGB(32.5, 32.5, 32.5)),
+				ColorSequenceKeypoint.new(1.00, Color3.fromRGB(27.5, 25, 30))
 			}),
-			["Color Hub 2"] = Color3.fromRGB(168, 0, 0),
-			["Color Stroke"] = Color3.fromRGB(255, 0, 0),
-			["Color Theme"] = Color3.fromRGB(0, 0, 0),
-			["Color Text"] = Color3.fromRGB(255, 255, 255),
-			["Color Dark Text"] = Color3.fromRGB(255, 255, 255)
+			["Color Hub 2"] = Color3.fromRGB(30, 30, 30),
+			["Color Stroke"] = Color3.fromRGB(40, 40, 40),
+			["Color Theme"] = Color3.fromRGB(150, 0, 255),
+			["Color Text"] = Color3.fromRGB(240, 240, 240),
+			["Color Dark Text"] = Color3.fromRGB(180, 180, 180)
 		}
 	},
 	Info = {
@@ -54,7 +54,7 @@ local redzlib = {
 	},
 	Save = {
 		UISize = {550, 380},
-		TabSize = 50,
+		TabSize = 160,
 		Theme = "Blue"
 	},
 	Settings = {},
@@ -654,6 +654,7 @@ function redzlib:MakeWindow(Configs)
 	}), "Text")
 	
 	local MainScroll = InsertTheme(Create("ScrollingFrame", Components, {
+		Size = UDim2.new(0, redzlib.Save.TabSize, 1, -TopBar.Size.Y.Offset),
 		ScrollBarImageColor3 = Theme["Color Theme"],
 		Position = UDim2.new(0, 0, 1, 0),
 		AnchorPoint = Vector2.new(0, 1),
@@ -698,6 +699,7 @@ function redzlib:MakeWindow(Configs)
 		AnchorPoint = Vector2.new(0.5, 1),
 		Active = true,
 		BackgroundTransparency = 1,
+		Name = "Control Tab Size"
 	}))
 	
 	local function ControlSize()
@@ -721,6 +723,7 @@ function redzlib:MakeWindow(Configs)
 	end)
 	
 	ConnectSave(ControlSize2, function()
+		redzlib.Save.TabSize = MainScroll.Size.X.Offset
 		SaveJson("BYSUSKHMER LIBRARY.json", redzlib.Save)
 	end)
 	
@@ -1864,6 +1867,5 @@ function redzlib:MakeWindow(Configs)
 	MinimizeButton.Activated:Connect()
 	return Window
 end
-
 
 return redzlib
