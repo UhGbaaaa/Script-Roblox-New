@@ -698,7 +698,6 @@ function redzlib:MakeWindow(Configs)
 		AnchorPoint = Vector2.new(0.5, 1),
 		Active = true,
 		BackgroundTransparency = 1,
-		Name = "Control Tab Size"
 	}))
 	
 	local function ControlSize()
