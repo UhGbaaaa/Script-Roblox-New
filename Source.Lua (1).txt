@@ -1905,6 +1905,7 @@ Toggle.MouseButton1Click:connect(function()
 			ControlSize2.Visible = false
 			CreateTween({MainFrame, "Size", UDim2.fromOffset(MainFrame.Size.X.Offset, 28), 0.25, true})
 			Minimized = true
+                end
 end)
 
 return redzlib
