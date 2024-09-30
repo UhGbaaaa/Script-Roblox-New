@@ -654,7 +654,6 @@ function redzlib:MakeWindow(Configs)
 	}), "Text")
 	
 	local MainScroll = InsertTheme(Create("ScrollingFrame", Components, {
-		Size = UDim2.new(0, redzlib.Save.TabSize, 1, -TopBar.Size.Y.Offset),
 		ScrollBarImageColor3 = Theme["Color Theme"],
 		Position = UDim2.new(0, 0, 1, 0),
 		AnchorPoint = Vector2.new(0, 1),
@@ -723,7 +722,6 @@ function redzlib:MakeWindow(Configs)
 	end)
 	
 	ConnectSave(ControlSize2, function()
-		redzlib.Save.TabSize = MainScroll.Size.X.Offset
 		SaveJson("BYSUSKHMER LIBRARY.json", redzlib.Save)
 	end)
 	
@@ -1867,5 +1865,6 @@ function redzlib:MakeWindow(Configs)
 	MinimizeButton.Activated:Connect()
 	return Window
 end
+
 
 return redzlib
