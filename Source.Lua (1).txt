@@ -134,14 +134,6 @@ local SetProps, SetChildren, InsertTheme, Create do
 	pcall(Save, "BYSUSKHMER LIBRARY.json")
 end
 
-function Library:ToggleUI()
-	if game.CoreGui[Screen].Enabled then
-		game.CoreGui[Screen].Enabled = false
-	else
-		game.CoreGui[Screen].Enabled = true
-	end
-end
-
 local Funcs = {} do
 	function Funcs:InsertCallback(tab, func)
 		if type(func) == "function" then
@@ -281,7 +273,7 @@ local GetFlag, SetFlag, CheckFlag do
 end
 
 local ScreenGui = Create("ScreenGui", CoreGui, {
-	Name = "coreguibysuskhmer",
+	Name = "BLUE MOD",
 }, {
 	Create("UIScale", {
 		Scale = UIScale,
